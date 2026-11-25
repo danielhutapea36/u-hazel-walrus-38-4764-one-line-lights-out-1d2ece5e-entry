@@ -20,6 +20,12 @@ LINE = (
 
 
 def main() -> None:
+    # Gate: the bounty only accepts 1-200 characters. Fail loudly here
+    # rather than writing an entry the sealed scorer would refuse.
+    if not 1 <= len(LINE) <= 200:
+        raise SystemExit(
+            f"entry is {len(LINE)} characters; the gate allows 1-200"
+        )
     out_dir = os.environ.get("MAKEFUN_OUTPUT_DIR", "/output")
     os.makedirs(out_dir, exist_ok=True)
     path = os.path.join(out_dir, "entry.txt")
